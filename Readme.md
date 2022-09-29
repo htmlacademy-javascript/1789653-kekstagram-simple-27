@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм (простой)»
 
 * Студент: [Борис Хоменко](https://up.htmlacademy.ru/javascript/27/user/1789653).
-* Наставник: `Неизвестно`.
+* Наставник: <a href ="https://htmlacademy.ru/profile/hikikomori">Максим Прусаков</a>.
 
 ---
 
