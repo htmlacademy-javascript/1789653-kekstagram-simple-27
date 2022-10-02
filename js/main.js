@@ -3,9 +3,9 @@ function getRandomNumber(min, max) {
     return NaN;
   }
   if (min > max) {
-    const number = min;
+    const NUMBER = min;
     min = max;
-    max = number;
+    max = NUMBER;
   }
   min = Math.ceil(min);
   max = Math.floor(max);
