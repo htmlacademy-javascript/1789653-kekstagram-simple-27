@@ -12,3 +12,14 @@ function getRandomNumber(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 getRandomNumber(10, 5);
+
+const CHAR_COUNTER = '';
+
+function getMaxLengthString(value, maxLength) {
+  if (value.length > maxLength) {
+    return false;
+  }
+  return true;
+}
+
+getMaxLengthString(CHAR_COUNTER, 5);
