@@ -13,13 +13,7 @@ function getRandomNumber(min, max) {
 }
 getRandomNumber(10, 5);
 
-const CHAR_COUNTER = '';
+const checkMaxLengthString = (string, maxLength) =>
+  string.length <= maxLength;
 
-function getMaxLengthString(value, maxLength) {
-  if (value.length > maxLength) {
-    return false;
-  }
-  return true;
-}
-
-getMaxLengthString(CHAR_COUNTER, 5);
+checkMaxLengthString('', 5);
