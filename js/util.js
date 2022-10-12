@@ -1,5 +1,3 @@
-import './main.js';
-
 // Функция: Получения случайного числа из диапазона
 const getRandomNumber = (min, max) => {
   if (min < 0 || max < 0) {
