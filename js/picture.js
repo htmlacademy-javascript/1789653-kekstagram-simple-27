@@ -7,8 +7,8 @@ const similarPhotos = createPhotos();
 
 const similarListFragment = document.createDocumentFragment();
 
-const createPictures = (element) => {
-  element.forEach(({ url, likes, comments }) => {
+const createPictures = (elements) => {
+  elements.forEach(({ url, likes, comments }) => {
     const pictureElement = picture.cloneNode(true);
     pictureElement.querySelector('.picture__img').src = url;
     pictureElement.querySelector('.picture__likes').textContent = likes;
