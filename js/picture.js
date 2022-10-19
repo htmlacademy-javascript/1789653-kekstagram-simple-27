@@ -5,11 +5,10 @@ const picture = document.querySelector('#picture').content.querySelector('.pictu
 
 const similarPhotos = createPhotos();
 
+const similarListFragment = document.createDocumentFragment();
 
-const createPictures = () => {
-  const similarListFragment = document.createDocumentFragment();
-
-  similarPhotos.forEach(({ url, likes, comments }) => {
+const createPictures = (element) => {
+  element.forEach(({ url, likes, comments }) => {
     const pictureElement = picture.cloneNode(true);
     pictureElement.querySelector('.picture__img').src = url;
     pictureElement.querySelector('.picture__likes').textContent = likes;
@@ -19,4 +18,4 @@ const createPictures = () => {
   userPhotos.append(similarListFragment);
 };
 
-createPictures();
+createPictures(similarPhotos);
