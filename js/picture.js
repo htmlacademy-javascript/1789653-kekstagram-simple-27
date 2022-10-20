@@ -18,9 +18,5 @@ const createPictures = (elements) => {
   userPhotos.append(similarListFragment);
 };
 
-// const clearPicturesList = () => {
-//   userPhotos.innerHTML = '';
-// };
-
 createPictures(similarPhotos);
 
