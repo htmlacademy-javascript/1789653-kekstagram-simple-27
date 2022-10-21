@@ -19,3 +19,4 @@ const createPictures = (elements) => {
 };
 
 createPictures(similarPhotos);
+

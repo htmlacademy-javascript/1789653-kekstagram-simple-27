@@ -1,4 +1,4 @@
-import {getRandomNumber} from './util.js';
+import { getRandomNumber } from './util.js';
 
 const SIMILAR_PHOTO_COUNT = 25;
 
@@ -15,4 +15,4 @@ const createPhotos = () => Array.from({length: SIMILAR_PHOTO_COUNT}, (_item, ind
 
 createPhotos();
 
-export {createPhotos};
+export { createPhotos };
