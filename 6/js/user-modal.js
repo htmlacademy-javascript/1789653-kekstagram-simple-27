@@ -13,23 +13,22 @@ const onFileEscKeydown = (evt) => {
   }
 };
 
-function openUserFile () {
-  userModalElement.classList.remove('hidden');
-  body.classList.add('modal-open');
+userModalOpen.addEventListener('change', () => {
+  const openUserFile = () => {
+    userModalElement.classList.remove('hidden');
+    body.classList.add('modal-open');
 
-  document.addEventListener('keydown', onFileEscKeydown);
-}
+    document.addEventListener('keydown', onFileEscKeydown);
+  };
+  return openUserFile();
+});
 
-function closeUserFile () {
+function closeUserFile() {
   userModalElement.classList.add('hidden');
   body.classList.remove('modal-open');
 
   document.removeEventListener('keydown', onFileEscKeydown);
 }
-
-userModalOpen.addEventListener('click', () => {
-  openUserFile();
-});
 
 userModalClose.addEventListener('click', () => {
   closeUserFile();
