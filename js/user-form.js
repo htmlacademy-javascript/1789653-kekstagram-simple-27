@@ -1,30 +1,23 @@
-const userModalElement = document.querySelector('.img-upload__overlay');
-const controlSmaller = userModalElement.querySelector('.scale__control--smaller');
-const controlBigger = userModalElement.querySelector('.scale__control--bigger');
-const controlValue = userModalElement.querySelector('.scale__control--value');
-const uploadPreview = userModalElement.querySelector('.img-upload__preview');
+import { removeEffectSetting } from './picture-form-filter.js';
+
+const controlSmaller = document.querySelector('.scale__control--smaller');
+const controlBigger = document.querySelector('.scale__control--bigger');
+const controlValue = document.querySelector('.scale__control--value');
+const uploadPreview = document.querySelector('.img-upload__preview img');
+
+const resetSetting = () => {
+  controlValue.value = '100%';
+  uploadPreview.style.transform = 'scale(1.00)';
+  removeEffectSetting();
+};
 
 const MIN_CONTROL_SMALLER = 25;
 const MAX_CONTROL_BIGGER = 100;
 const STEP_CONTROL = 25;
 
-controlValue.value = `${100}%`;
-
-const setScaleValuePicture = (elementValue) => {
-  switch (true) {
-    case (elementValue === `${100}%`):
-      uploadPreview.style = 'transform: scale(1.0)';
-      break;
-    case (elementValue === `${75}%`):
-      uploadPreview.style = 'transform: scale(0.75)';
-      break;
-    case (elementValue === `${50}%`):
-      uploadPreview.style = 'transform: scale(0.50)';
-      break;
-    case (elementValue === `${25}%`):
-      uploadPreview.style = 'transform: scale(0.25)';
-      break;
-  }
+const setScaleValuePicture = () => {
+  const values = parseFloat(controlValue.value);
+  uploadPreview.style.transform = `scale(${values / 100})`;
 };
 
 const minScaleClickHandler = () => {
@@ -33,7 +26,7 @@ const minScaleClickHandler = () => {
     return false;
   }
   controlValue.value = `${currentValue - STEP_CONTROL}%`;
-  setScaleValuePicture(controlValue.value);
+  setScaleValuePicture();
 };
 
 const maxScaleClickHandler = () => {
@@ -42,9 +35,9 @@ const maxScaleClickHandler = () => {
     return false;
   }
   controlValue.value = `${currentValue + STEP_CONTROL}%`;
-  setScaleValuePicture(controlValue.value);
+  setScaleValuePicture();
 };
-
 controlSmaller.addEventListener('click', minScaleClickHandler);
 controlBigger.addEventListener('click', maxScaleClickHandler);
 
+export { resetSetting };
