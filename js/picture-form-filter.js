@@ -1,5 +1,3 @@
-import { resetSetting } from './user-form.js';
-
 const uploadPreview = document.querySelector('.img-upload__preview img');
 const effectsRadios = document.querySelectorAll('.effects__radio');
 const effectLevelValue = document.querySelector('.effect-level__value');
@@ -120,7 +118,7 @@ effectsRadios.forEach((effectItem) => {
     setEffectClass(`effects__preview--${effectItem.value}`);
     optionIntensity(effectIntensity[target], DEFAULT_VALUE, 'block');
     if (target === 'none') {
-      resetSetting();
+      removeEffectSetting();
     }
   });
 });
