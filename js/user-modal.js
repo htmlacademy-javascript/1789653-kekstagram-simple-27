@@ -1,10 +1,14 @@
-import { isEscapeKey } from './util.js';
-import { resetSetting } from './user-form.js';
 import './picture-form-filter.js';
+import { isEscapeKey, showAlert } from './util.js';
+import { resetSetting } from './user-form.js';
+import { sendData } from './api.js';
+import { createSuccessPopup, createErrorPopup } from './popup-form.js';
 
-const userModalOpen = document.querySelector('#upload-file');
-const userModalElement = document.querySelector('.img-upload__overlay');
+const uploadSelectImage = document.querySelector('#upload-select-image');
+const userModalOpen = uploadSelectImage.querySelector('#upload-file');
+const userModalElement = uploadSelectImage.querySelector('.img-upload__overlay');
 const userModalClose = userModalElement.querySelector('#upload-cancel');
+const uploadSubmitButton = document.querySelector('#upload-submit');
 const body = document.querySelector('body');
 
 const onFileEscKeydown = (evt) => {
@@ -12,7 +16,7 @@ const onFileEscKeydown = (evt) => {
     evt.preventDefault();
     userModalElement.classList.add('hidden');
     body.classList.remove('modal-open');
-    userModalOpen.value = '';
+    uploadSelectImage.reset();
   }
 };
 
@@ -33,3 +37,39 @@ const closeUserFile = () => {
 
 userModalOpen.addEventListener('change', openUserFile);
 userModalClose.addEventListener('click', closeUserFile);
+
+const blockSubmitButton = () => {
+  uploadSubmitButton.disabled = true;
+  uploadSubmitButton.textContent = 'Опубликовываю...';
+};
+
+const unBlockSubmitButton = () => {
+  uploadSubmitButton.disabled = false;
+  uploadSubmitButton.textContent = 'Опубликовать';
+};
+
+const setUserFormSubmit = (onSeccess) => {
+  uploadSelectImage.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    if (!Response.ok) {
+      blockSubmitButton();
+      sendData(
+        () => {
+          onSeccess();
+          unBlockSubmitButton();
+          uploadSelectImage.reset();
+          createSuccessPopup();
+        },
+        () => {
+          showAlert('Не удалось отправить файл! Попрбуйти ещё раз!');
+          unBlockSubmitButton();
+          createErrorPopup();
+        },
+        new FormData(evt.target),
+      );
+    }
+  });
+};
+
+export { setUserFormSubmit, closeUserFile };
+
