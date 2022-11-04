@@ -33,6 +33,7 @@ const showAlert = (message) => {
   alertContainer.style.padding = '10px 3px';
   alertContainer.style.fontSize = '30px';
   alertContainer.style.textAlign = 'center';
+  alertContainer.style.lineHeight = 'normal';
   alertContainer.style.backgroundColor = 'red';
   alertContainer.style.borderRadius = '10px';
 

@@ -1,9 +1,13 @@
+import { showAlert } from './util.js';
 const getData = (onSuccess) => {
   fetch('https://27.javascript.pages.academy/kekstagram-simple/data')
     .then((response) => response.json())
     .then((pictures) => {
       onSuccess(pictures);
-    });
+    })
+    .catch(() =>
+      showAlert('ОЙ... Что-то пошло не так! Попробуйте перезагрузить страницу!')
+    );
 };
 
 const sendData = (onSuccess, onFail, body) => {
@@ -16,8 +20,9 @@ const sendData = (onSuccess, onFail, body) => {
     .then((response) => {
       if (response.ok) {
         onSuccess();
+      } else {
+        onFail('Не удалось отправить форму! Попрбуйти ещё раз!');
       }
-      onFail('Не удалось отправить форму! Попрбуйти ещё раз!');
     })
     .catch(() => {
       onFail('Не удалось отправить форму. Попрбуйти ещё раз.');
@@ -25,3 +30,4 @@ const sendData = (onSuccess, onFail, body) => {
 };
 
 export { getData, sendData };
+
