@@ -1,48 +1,53 @@
 import { isEscapeKey } from './util.js';
+import { isOutsideEvent } from './util.js';
+import { onFileEscKeydown } from './user-modal.js';
 
-const successTemplate = document.querySelector('#success').content.querySelector('.success');
-const errorTemplate = document.querySelector('#error').content.querySelector('.error');
-const errorButton = errorTemplate.querySelector('.error__button');
+const createPopupMessage = (type, message, text) => {
+  const alertTemplate = document.querySelector(`#${type}`).content.querySelector(`.${type}`);
+  const popupAlert = alertTemplate.cloneNode(true);
 
-const createSuccessPopup = () => {
-  const successPopup = successTemplate.cloneNode(true);
-  document.body.append(successPopup);
+  const closedAlertPopup = popupAlert.querySelector(`.${type}__button`);
 
-  const onPopupEscKeydown = (evt) => {
-    evt.preventDefault();
-    if (isEscapeKey) {
-      successPopup.remove();
-      document.removeEventListener('keydown', onPopupEscKeydown);
-    }
-  };
-  document.addEventListener('keydown', onPopupEscKeydown);
-  successPopup.addEventListener('click', () => {
-    successPopup.remove();
-    document.removeEventListener('keydown', onPopupEscKeydown);
-  });
-};
+  if (message) {
+    popupAlert.querySelector(`${type}__title`).textContent = message;
+    closedAlertPopup.textContent = text;
+  }
 
-const createErrorPopup = () => {
-  const errorPopup = errorTemplate.cloneNode(true);
-  document.body.append(errorPopup);
+  const popupEscKeydown = (evt) => {
+    if (isEscapeKey(evt)) {
+      evt.preventDefault();
+      popupAlert.remove();
 
-  const onPopupEscKeydown = (evt) => {
-    evt.preventDefault();
-    if (isEscapeKey) {
-      errorPopup.remove();
-      document.removeEventListener('keydown', onPopupEscKeydown);
+      if (closedAlertPopup) {
+        document.addEventListener('keydown', onFileEscKeydown);
+      }
+      document.removeEventListener('keydown', popupEscKeydown);
     }
   };
 
-  document.addEventListener('keydown', onPopupEscKeydown);
-  errorPopup.addEventListener('click', () => {
-    errorPopup.remove();
-    document.removeEventListener('keydown', onPopupEscKeydown);
-  });
-  errorButton.addEventListener('mousedown', () => {
-    errorPopup.remove();
-    document.removeEventListener('keydown', onPopupEscKeydown);
-  });
+  const popupOutsideEvent = (evt) => {
+    if (isOutsideEvent(evt)) {
+      evt.preventDefault();
+      popupAlert.remove();
+    }
+  };
+
+  if (closedAlertPopup) {
+    document.removeEventListener('keydown', onFileEscKeydown);
+  }
+
+  const onClickButtonAlert = () => {
+    popupAlert.remove();
+    closedAlertPopup.removeEventListener('click', onClickButtonAlert);
+    document.removeEventListener('click', popupOutsideEvent);
+    document.removeEventListener('keydown', popupEscKeydown);
+  };
+
+  closedAlertPopup.addEventListener('click', onClickButtonAlert);
+  document.addEventListener('click', popupOutsideEvent);
+  document.addEventListener('keydown', popupEscKeydown);
+
+  document.body.append(popupAlert);
 };
 
-export { createSuccessPopup, createErrorPopup };
+export { createPopupMessage };

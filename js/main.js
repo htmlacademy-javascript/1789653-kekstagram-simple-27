@@ -1,4 +1,3 @@
-import './data.js';
 import './picture.js';
 import './user-form.js';
 import { setUserFormSubmit, closeUserFile } from './user-modal.js';

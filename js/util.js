@@ -46,4 +46,6 @@ const showAlert = (message) => {
   }, ALERT_SHOW_TIME);
 };
 
-export { getRandomNumber, isEscapeKey, showAlert };
+const isOutsideEvent = (evt) => evt.target.matches('section');
+
+export { isEscapeKey, showAlert, isOutsideEvent };
