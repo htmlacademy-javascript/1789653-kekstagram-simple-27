@@ -1,9 +1,5 @@
-import { createPhotos } from './data.js';
-
 const userPhotos = document.querySelector('.pictures');
 const picture = document.querySelector('#picture').content.querySelector('.picture');
-
-const similarPhotos = createPhotos();
 
 const similarListFragment = document.createDocumentFragment();
 
@@ -18,5 +14,5 @@ const createPictures = (elements) => {
   userPhotos.append(similarListFragment);
 };
 
-createPictures(similarPhotos);
+export { createPictures };
 
