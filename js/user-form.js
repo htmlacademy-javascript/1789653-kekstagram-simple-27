@@ -20,7 +20,7 @@ const setScaleValuePicture = () => {
   uploadPreview.style.transform = `scale(${values / 100})`;
 };
 
-const minScaleClickHandler = () => {
+const onMinScaleClick = () => {
   const currentValue = parseFloat(controlValue.value);
   if (currentValue === MIN_CONTROL_SMALLER) {
     return false;
@@ -29,7 +29,7 @@ const minScaleClickHandler = () => {
   setScaleValuePicture();
 };
 
-const maxScaleClickHandler = () => {
+const onMaxScaleClick = () => {
   const currentValue = parseFloat(controlValue.value);
   if (currentValue === MAX_CONTROL_BIGGER) {
     return false;
@@ -37,7 +37,7 @@ const maxScaleClickHandler = () => {
   controlValue.value = `${currentValue + STEP_CONTROL}%`;
   setScaleValuePicture();
 };
-controlSmaller.addEventListener('click', minScaleClickHandler);
-controlBigger.addEventListener('click', maxScaleClickHandler);
+controlSmaller.addEventListener('click', onMinScaleClick);
+controlBigger.addEventListener('click', onMaxScaleClick);
 
 export { resetSetting };
