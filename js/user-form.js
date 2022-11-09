@@ -1,4 +1,7 @@
 import { removeEffectSetting } from './picture-form-filter.js';
+const MIN_CONTROL_SMALLER = 25;
+const MAX_CONTROL_BIGGER = 100;
+const STEP_CONTROL = 25;
 
 const controlSmaller = document.querySelector('.scale__control--smaller');
 const controlBigger = document.querySelector('.scale__control--bigger');
@@ -10,10 +13,6 @@ const resetSetting = () => {
   uploadPreview.style.transform = 'scale(1.00)';
   removeEffectSetting();
 };
-
-const MIN_CONTROL_SMALLER = 25;
-const MAX_CONTROL_BIGGER = 100;
-const STEP_CONTROL = 25;
 
 const setScaleValuePicture = () => {
   const values = parseFloat(controlValue.value);

@@ -1,3 +1,5 @@
+const DEFAULT_VALUE_EFFECT = 100;
+
 const uploadPreview = document.querySelector('.img-upload__preview img');
 const effectsRadios = document.querySelectorAll('.effects__radio');
 const effectLevelValue = document.querySelector('.effect-level__value');
@@ -6,7 +8,6 @@ const effectLevel = document.querySelector('.effect-level');
 
 let currentEffect = '';
 let measureUnit = '';
-const DEFAULT_VALUE = 100;
 
 const effectIntensity = {
   'none': {
@@ -71,7 +72,7 @@ const effectIntensity = {
   },
 };
 
-const optionIntensity = ({ RANGE: { MIN, MAX }, START, STEP, EFFECT, MEASURE_UNIT }, startValue, display) => {
+const setEffectSettings = ({ RANGE: { MIN, MAX }, START, STEP, EFFECT, MEASURE_UNIT }, startValue, display) => {
   currentEffect = EFFECT;
   measureUnit = MEASURE_UNIT;
   effectLevelSlider.noUiSlider.updateOptions({
@@ -89,7 +90,7 @@ const optionIntensity = ({ RANGE: { MIN, MAX }, START, STEP, EFFECT, MEASURE_UNI
 const removeEffectSetting = () => {
   uploadPreview.classList = '';
   uploadPreview.style.filter = '';
-  optionIntensity(effectIntensity.none, DEFAULT_VALUE, 'none');
+  setEffectSettings(effectIntensity.none, DEFAULT_VALUE_EFFECT, 'none');
 };
 
 noUiSlider.create(effectLevelSlider, {
@@ -116,7 +117,7 @@ effectsRadios.forEach((effectItem) => {
   effectItem.addEventListener('change', (evt) => {
     const target = evt.currentTarget.value;
     setEffectClass(`effects__preview--${effectItem.value}`);
-    optionIntensity(effectIntensity[target], DEFAULT_VALUE, 'block');
+    setEffectSettings(effectIntensity[target], DEFAULT_VALUE_EFFECT, 'block');
     if (target === 'none') {
       removeEffectSetting();
     }
